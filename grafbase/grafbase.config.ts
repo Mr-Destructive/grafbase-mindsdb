@@ -11,14 +11,12 @@ const db_parameters = g.type('Parameters',{
 const database = g.type('Database', {
   name: g.string(),
   type: g.string(),
-  id: g.id().optional(),
   engine: g.string().optional(),
 })
 
 const databaseCreateInput = g.input('DatabaseCreateInput', {
   name: g.string(),
   engine: g.string(),
-  type: g.string().optional(),
   database: g.string().optional(),
   user: g.string().optional(),
   password: g.string().optional(),
@@ -33,17 +31,16 @@ const mindsdbAuth = g.input('Auth', {
     managed: g.boolean().optional(),
 })
 
-//g.mutation('databaseCreate', {
-//  args: { input: g.inputRef(databaseCreateInput) },
-//  resolver: 'databases/create',
-//  returns: g.ref(database).optional()
-//})
-
-
 g.query('databases', {
     args: {input: g.inputRef(mindsdbAuth)},
     resolver: 'databases/list',
     returns: g.ref(database).optional().list().optional(),
+})
+
+g.mutation('databaseCreate', {
+  args: { auth: g.inputRef(mindsdbAuth), input: g.inputRef(databaseCreateInput) },
+  resolver: 'databases/create',
+  returns: g.ref(database).optional(),
 })
 
 export default config({

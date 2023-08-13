@@ -1,25 +1,23 @@
-import axios from 'axios';
+import {login} from "../../connect";
 
 export default async function Databases(_, { input }) {
     try {
-        //let baseUrl = process.env.BASE_URL
-        //const cookies = await login(input)
-        const email = input.email;
-        const password = input.password;
+        const headers = await login(input);
         const baseUrl = input.host || process.env.BASE_URL;
-        const response = await axios.post(`${baseUrl}/cloud/login`, {
-            email,
-            password
+
+        const databasesResponse = await fetch(`${baseUrl}/api/databases`, {
+            headers: headers,
+            credentials: 'include'
         });
-        const cookies = response.headers['set-cookie'].join('; ');
-        const response2 = await axios.get(`${baseUrl}/api/databases`, {
-            headers: {
-                'Cookie': cookies,
-            }
-        });
-        return response2.data; 
+
+        if (databasesResponse.status !== 200) {
+            throw new Error('Failed to fetch databases');
+        }
+
+        const databasesData = await databasesResponse.json();
+        return databasesData;
     } catch (error) {
         console.error(error);
-        return []
+        return [error];
     }
 }
