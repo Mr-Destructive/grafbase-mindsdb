@@ -2,6 +2,8 @@ import {login} from "../../connect";
 
 export default async function ProjectViews(_, { auth, projectName }) {
     try {
+        //const head = context.req.headers
+        //console.log(head)
         const headers = await login(auth);
         headers.append('Content-Type', 'application/json');
         const baseUrl = auth.host || process.env.BASE_URL;
@@ -15,7 +17,6 @@ export default async function ProjectViews(_, { auth, projectName }) {
         if (viewsResponse.status !== 200) {
             throw new Error('Failed to fetch views');
         }
-
         const views = await viewsResponse.json();
         return views;
     } catch (error) {

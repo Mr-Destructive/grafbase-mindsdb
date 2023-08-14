@@ -17,6 +17,12 @@ const modelCreateInput = g.input('ModelCreateInput', {
   parameters: g.json(),
 })
 
+const modelQueryInput = g.input('ModelQueryInput', {
+    projectName: g.string(),
+    modelName: g.string(),
+    data: g.json(),
+})
+
 const tableCreateInput = g.input('TableCreateInput', {
   name: g.string(),
   replace: g.boolean(),
@@ -38,6 +44,7 @@ const mindsdbAuth = g.input('Auth', {
 export {
   databaseCreateInput,
   modelCreateInput,
+  modelQueryInput,
   tableCreateInput,
   viewCreateInput,
   mindsdbAuth

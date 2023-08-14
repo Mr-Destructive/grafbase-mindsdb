@@ -1,10 +1,9 @@
-
 import {login} from "../../connect";
 
-export default async function Project(_, { input, name }) {
+export default async function Project(_, { auth, name }) {
     try {
-        const headers = await login(input);
-        const baseUrl = input.host || process.env.BASE_URL;
+        const headers = await login(auth);
+        const baseUrl = auth.host || process.env.BASE_URL;
 
         const projectsResponse = await fetch(`${baseUrl}/api/projects/${name}`, {
             headers: headers,

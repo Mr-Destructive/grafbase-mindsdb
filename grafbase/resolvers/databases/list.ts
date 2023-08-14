@@ -1,9 +1,9 @@
 import {login} from "../../connect";
 
-export default async function Databases(_, { input }) {
+export default async function Databases(_, { auth }) {
     try {
-        const headers = await login(input);
-        const baseUrl = input.host || process.env.BASE_URL;
+        const headers = await login(auth);
+        const baseUrl = auth.host || process.env.BASE_URL;
 
         const databasesResponse = await fetch(`${baseUrl}/api/databases`, {
             headers: headers,

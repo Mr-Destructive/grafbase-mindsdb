@@ -1,9 +1,9 @@
 import {login} from "../../connect";
 
-export default async function ProjectModels(_, { input, projectName }) {
+export default async function ProjectModels(_, {auth, projectName }, { request }) {
     try {
-        const headers = await login(input);
-        const baseUrl = input.host || process.env.BASE_URL;
+        const headers = await login(auth);
+        const baseUrl = auth.host|| process.env.BASE_URL;
         const url = `${baseUrl}/api/projects/${projectName}/models`;
 
         const modelsResponse = await fetch(url, {

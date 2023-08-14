@@ -3,7 +3,7 @@ import * as types from './types'
 import * as inputs from './inputs'
 
 g.query('databases', {
-    args: {input: g.inputRef(inputs.mindsdbAuth)},
+    args: {auth: g.inputRef(inputs.mindsdbAuth)},
     resolver: 'databases/list',
     returns: g.ref(types.database).optional().list().optional(),
 })
@@ -15,31 +15,31 @@ g.mutation('databaseCreate', {
 })
 
 g.query('projects', {
-    args: {input: g.inputRef(inputs.mindsdbAuth)},
+    args: {auth: g.inputRef(inputs.mindsdbAuth)},
     resolver: 'projects/list',
     returns: g.ref(types.project).optional().list().optional(),
 })
 
 g.query('project', {
-    args: {input: g.inputRef(inputs.mindsdbAuth), name: g.string()},
+    args: {auth: g.inputRef(inputs.mindsdbAuth), name: g.string()},
     resolver: 'projects/get',
     returns: g.ref(types.project).optional(),
 })
 
 g.query('projectModels', {
-    args: {input: g.inputRef(inputs.mindsdbAuth), projectName: g.string()},
+    args: {auth: g.inputRef(inputs.mindsdbAuth), projectName: g.string()},
     resolver: 'models/list',
-    returns: g.ref(types.model).optional().list().optional(),
+    returns: g.ref(types.model).list().optional(),
 })
 
 g.query('Model', {
-    args: {input: g.inputRef(inputs.mindsdbAuth), projectName: g.string(), modelName: g.string()},
+    args: {auth: g.inputRef(inputs.mindsdbAuth), projectName: g.string(), modelName: g.string()},
     resolver: 'models/get',
     returns: g.ref(types.model).optional(),
 })
 
 g.query('ModelDescribe', {
-    args: {input: g.inputRef(inputs.mindsdbAuth), projectName: g.string(), modelName: g.string()},
+    args: {auth: g.inputRef(inputs.mindsdbAuth), projectName: g.string(), modelName: g.string()},
     resolver: 'models/describe',
     returns: g.ref(types.describeModel).optional(),
 })
@@ -54,6 +54,12 @@ g.mutation('modelDelete', {
   args: { auth: g.inputRef(inputs.mindsdbAuth), projectName: g.string(), modelName: g.string() },
   resolver: 'models/delete',
   returns: g.string().optional(),
+})
+
+g.mutation('modelQuery', {
+  args: { auth: g.inputRef(inputs.mindsdbAuth), query: g.inputRef(inputs.modelQueryInput)},
+  resolver: 'models/query',
+  returns: g.json().optional(),
 })
 
 g.mutation('sqlQuery', {

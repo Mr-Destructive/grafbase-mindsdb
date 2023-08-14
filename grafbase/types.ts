@@ -61,14 +61,14 @@ const model = g.type('Model', {
 })
 
 const table = g.type('Table', {
-  name: g.string().optional(),
-  type: g.string().optional(),
+  name: g.string(),
+  type: g.string(),
 })
 
 const view = g.type('View', {
   id: g.int().optional(),
-  name: g.string().optional(),
-  query: g.string().optional(),
+  name: g.string(),
+  query: g.string(),
 })
 
 export {
