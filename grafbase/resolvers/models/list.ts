@@ -1,4 +1,3 @@
-
 import {login} from "../../connect";
 
 export default async function ProjectModels(_, { input, projectName }) {
@@ -17,7 +16,6 @@ export default async function ProjectModels(_, { input, projectName }) {
         }
 
         const models = await modelsResponse.json();
-        console.log(models[0]);
         return models;
     } catch (error) {
         console.error(error);
