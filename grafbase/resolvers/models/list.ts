@@ -1,13 +1,19 @@
 import {login} from "../../connect";
 
-export default async function ProjectModels(_, {auth, projectName }, { request }) {
+export default async function ProjectModels(_, { projectName }, { request }) {
     try {
-        const headers = await login(auth);
-        const baseUrl = auth.host|| process.env.BASE_URL;
+        //const {headers} = request;
+        //let credentials = headers['authorization'].split(';');
+        //const auth = {
+        //    email: credentials[0],
+        //    password: credentials[1]
+        //}
+        const cookies = await login(auth);
+        const baseUrl = process.env.BASE_URL;
         const url = `${baseUrl}/api/projects/${projectName}/models`;
 
         const modelsResponse = await fetch(url, {
-            headers: headers,
+            headers: cookies,
             credentials: 'include'
         });
 
@@ -22,3 +28,4 @@ export default async function ProjectModels(_, {auth, projectName }, { request }
         return [error];
     }
 }
+

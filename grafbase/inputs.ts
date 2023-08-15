@@ -1,13 +1,20 @@
 import { g, config } from '@grafbase/sdk'
 
+const databaseFilterInput = g.input('DatabaseFilterInput', {
+  name: g.string().optional(),
+  engine: g.string().optional(),
+  type: g.string().optional(),
+})
+
 const databaseCreateInput = g.input('DatabaseCreateInput', {
   name: g.string(),
   engine: g.string(),
-  database: g.string().optional(),
-  user: g.string().optional(),
-  password: g.string().optional(),
-  host: g.string().optional(),
-  port: g.int().optional(),
+  parameters: g.json().optional(),
+})
+
+const databaseUpdateInput = g.input('DatabaseUpdateInput', {
+  engine: g.string().optional(),
+  parameters: g.json().optional(),
 })
 
 const modelCreateInput = g.input('ModelCreateInput', {
@@ -42,7 +49,9 @@ const mindsdbAuth = g.input('Auth', {
 })
 
 export {
+  databaseFilterInput,
   databaseCreateInput,
+  databaseUpdateInput,
   modelCreateInput,
   modelQueryInput,
   tableCreateInput,

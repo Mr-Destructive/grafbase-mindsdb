@@ -1,0 +1,83 @@
+query Databases(
+  $email: Email!
+  $password: String!
+) {
+  databases(
+    auth: {
+      email: $email
+      password: $password
+    }
+  ) {
+    name
+    type
+    engine
+  }
+}
+
+query Tables(
+  $email: Email!
+  $password: String!
+) {
+  databaseTables(
+    auth: {
+      email: $email
+      password: $password
+    }
+    databaseName: "test_sdk"
+  ) {
+    name
+    type
+  }
+}
+
+
+query Projects(
+  $email: Email!
+  $password: String!
+) {
+  projects(
+    auth: {
+      email: $email
+      password: $password
+    }
+  ) {
+    name
+  }
+}
+
+
+query Models(
+  $email: Email!
+  $password: String!
+) {
+  projectModels(
+    auth: {
+      email: $email
+      password: $password
+    }
+    projectName: "test_sdk"
+  ) {
+    name
+    status
+    active
+    error
+    update
+  }
+}
+
+query Views(
+  $email: Email!
+  $password: String!
+) {
+  projectViews(
+    auth: {
+      email: $email
+      password: $password
+    }
+    projectName: "test_sdk"
+  ) {
+    name
+    query
+  }
+}
+

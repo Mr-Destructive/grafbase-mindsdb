@@ -11,7 +11,6 @@ export default async function ModelCreate(_, { auth, projectName, modelData }) {
             parameters += `${key} = '${value}', `;
         }
         parameters = parameters.slice(0, -2);
-        console.log(parameters);
 
         const query = `CREATE MODEL ${projectName}.${modelData.name} PREDICT ${modelData.predictColumn} USING ENGINE = '${modelData.engine}', ${parameters};`
 

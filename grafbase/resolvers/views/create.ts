@@ -8,8 +8,10 @@ export default async function ViewCreate(_, { auth, projectName, viewData }) {
         const url = `${baseUrl}/api/projects/${projectName}/views`;
 
         const body = JSON.stringify({
-            name: viewData.name,
-            query: viewData.query
+            view:{
+                name: viewData.name,
+                query: viewData.query
+            }
         })
         const viewsResponse = await fetch(url, {
             method: 'POST',

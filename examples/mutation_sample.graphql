@@ -1,0 +1,97 @@
+mutation DatabaseCreate(
+  $email: Email!
+  $password: String!
+) {
+  databaseCreate(
+    auth: {
+      email: $email
+      password: $password
+    }
+    input: {
+      name: "testdb1"
+      engine: "sqlite"
+      parameters: { db_file: "test.db" }
+    }
+  ) {
+    name
+    engine
+    type
+  }
+}
+
+
+mutation CreateModel(
+  $email: Email!
+  $password: String!
+){
+  modelCreate(auth: {
+    email: $email
+    password: $password
+  }
+  projectName: "test_sdk_1"
+  modelData: {
+    name:"randomjoke"
+    engine: "openai"
+    predictColumn: "response"
+    parameters: {
+      model_name:"gpt-3.5-turbo",
+      prompt_template: "give a random {{name}} joke"
+    }
+  })
+  {
+    name
+  }
+}
+
+
+mutation ModelQuery(
+  $email: Email!
+  $password: String!
+) {
+  modelQuery(
+    auth: {
+      email: $email
+      password: $password
+    }
+    query: {
+      projectName: "test_sdk_1"
+      modelName: "randomjoke"
+      data: {
+        name: "star wars"
+      }
+    }
+  )
+}
+
+mutation CreateView(
+  $email: Email!
+  $password: String!
+){
+  viewCreate(auth: {
+    email: $email
+    password: $password
+  }
+  projectName: "test_sdk_1"
+  viewData: {
+    name:"jokeview"
+    query: "SELECT response FROM test_sdk_1.randomjoke WHERE name='starwars'"
+  })
+  {
+    name
+  }
+}
+
+mutation SqlQuery(
+  $email: Email!
+  $password: String!
+){
+  sqlQuery(auth: {
+    email: $email
+    password: $password
+  }
+  query: "SELECT * FROM test_sdk_1.jokeview;"
+  ){
+    type
+    data
+  }
+}

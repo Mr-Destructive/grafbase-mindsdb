@@ -3,15 +3,33 @@ import * as types from './types'
 import * as inputs from './inputs'
 
 g.query('databases', {
-    args: {auth: g.inputRef(inputs.mindsdbAuth)},
+    args: {auth: g.inputRef(inputs.mindsdbAuth)}, //filter: g.inputRef(inputs.databaseFilterInput)},
     resolver: 'databases/list',
     returns: g.ref(types.database).optional().list().optional(),
+})
+
+g.query('database', {
+    args: {auth: g.inputRef(inputs.mindsdbAuth), databaseName: g.string()},
+    resolver: 'databases/get',
+    returns: g.ref(types.database).optional(),
 })
 
 g.mutation('databaseCreate', {
   args: { auth: g.inputRef(inputs.mindsdbAuth), input: g.inputRef(inputs.databaseCreateInput) },
   resolver: 'databases/create',
   returns: g.ref(types.database).optional(),
+})
+
+g.mutation('databaseUpdate', {
+  args: { auth: g.inputRef(inputs.mindsdbAuth), databaseName: g.string(), input: g.inputRef(inputs.databaseUpdateInput) },
+  resolver: 'databases/update',
+  returns: g.ref(types.database).optional(),
+})
+
+g.mutation('databaseDelete', {
+  args: { auth: g.inputRef(inputs.mindsdbAuth), databaseName: g.string() },
+  resolver: 'databases/delete',
+  returns: g.string().optional(),
 })
 
 g.query('projects', {
@@ -32,7 +50,7 @@ g.query('projectModels', {
     returns: g.ref(types.model).list().optional(),
 })
 
-g.query('Model', {
+g.query('projectModel', {
     args: {auth: g.inputRef(inputs.mindsdbAuth), projectName: g.string(), modelName: g.string()},
     resolver: 'models/get',
     returns: g.ref(types.model).optional(),

@@ -1,6 +1,6 @@
 import {login} from "../../connect";
 
-export default async function Model(_, { auth, projectName, modelName }) {
+export default async function projectModel(_, { auth, projectName, modelName }) {
     try {
         const headers = await login(auth);
         const baseUrl = auth.host || process.env.BASE_URL;

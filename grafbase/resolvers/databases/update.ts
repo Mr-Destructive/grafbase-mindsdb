@@ -1,6 +1,6 @@
 import {login} from "../../connect";
 
-export default async function DatabaseCreate(_, {auth, input }) {
+export default async function DatabaseUpdate(_, {auth, databaseName, input }) {
     try {
         const headers = await login(auth);
         headers.append('Content-Type', 'application/json');
@@ -8,21 +8,19 @@ export default async function DatabaseCreate(_, {auth, input }) {
 
         const body = JSON.stringify({
             database:{
-                name: input.name,
                 engine: input.engine,
                 parameters: input.parameters
             }
         })
-        console.log(body)
 
-        const databaseResponse = await fetch(`${baseUrl}/api/databases`, {
-            method: 'POST',
+        const databaseResponse = await fetch(`${baseUrl}/api/databases/${databaseName}`, {
+            method: 'PUT',
             headers: headers,
             body: body,
             credentials: 'include'
         });
 
-        if (databaseResponse.status !== 201) {
+        if (databaseResponse.status !== 200) {
             throw new Error('Failed to create database');
         }
         const database = await databaseResponse.json();
