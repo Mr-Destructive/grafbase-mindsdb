@@ -2,6 +2,10 @@
 
 A GraphQL API for MindsDB using Grafbase. It allows you to interact with MindsDB databases, projects, models, and more through a GraphQL interface.
 
+**Hashnode x Grafbase Hackathon Project** 
+
+[Article](https://techstructiveblog.hashnode.dev/mindsdb-grafbase-graphql-api)
+---
 
 https://github.com/Mr-Destructive/grafbase-mindsdb/assets/40317114/0ff1386d-a896-49b1-9cff-a1830c3851a7
 
